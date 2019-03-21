@@ -1,8 +1,11 @@
 Hadoop MapReduce HDFS
 -----------
-####running in docker environment (python3 and HDFS installed)
+
+##running in docker environment (python3 and HDFS installed)
 	 docker pull eecsyorku/eecs4415:latest
+	 
 -----------
+
 ##Distributed Text Analytics using Python
 * Distributed Computation of n-grams
 	*  compute the number of occurrences of each unigram in the song collection (umapper.py, ureducer.py) and output the results in a file called unigrams.txt
