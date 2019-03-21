@@ -1,0 +1,7 @@
+1. one of the idea I used to count the frequency is
+   first preprocess and get the total count of grams (by the natual of n-grams you can just calculate
+   total word count per file and minus n-1 to get total count of grams of that file)
+   could use map reduce to process, in each mapper, count the number of n gram and output it as value, 
+   with the same key so it goes to the same reducer, reducer get the total number of term, then do actual processing
+   for the actual processing, the value will be 1 devided by total number of grams instead of 1.
+   
