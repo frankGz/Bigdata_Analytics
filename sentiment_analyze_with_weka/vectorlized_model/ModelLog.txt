@@ -1,0 +1,55 @@
+BayesNet**************************************************************************************************
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       28932               72.33   %
+Incorrectly Classified Instances     11068               27.67   %
+Kappa statistic                          0.5394
+Mean absolute error                      0.202 
+Root mean squared error                  0.3794
+Relative absolute error                 51.7406 %
+Root relative squared error             85.8641 %
+Total Number of Instances            40000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.750    0.103    0.730      0.750    0.740      0.642    0.901     0.804     negative
+                 0.775    0.193    0.836      0.775    0.804      0.579    0.876     0.905     positive
+                 0.512    0.141    0.429      0.512    0.467      0.347    0.791     0.431     neutral
+Weighted Avg.    0.723    0.159    0.738      0.723    0.729      0.556    0.868     0.796     
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+  8108  1281  1417 |     a = negative
+  1780 17315  3246 |     b = positive
+  1223  2121  3509 |     c = neutral
+
+J48******************************************************************************************************
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       27572               68.93   %
+Incorrectly Classified Instances     12428               31.07   %
+Kappa statistic                          0.4572
+Mean absolute error                      0.2341
+Root mean squared error                  0.4213
+Relative absolute error                 59.9623 %
+Root relative squared error             95.3518 %
+Total Number of Instances            40000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.664    0.136    0.643      0.664    0.653      0.522    0.779     0.564     negative
+                 0.807    0.317    0.763      0.807    0.784      0.495    0.769     0.741     positive
+                 0.346    0.086    0.454      0.346    0.392      0.290    0.649     0.320     neutral
+Weighted Avg.    0.689    0.229    0.678      0.689    0.682      0.467    0.751     0.621     
+
+=== Confusion Matrix ===
+
+     a     b     c   <-- classified as
+  7176  2671   959 |     a = negative
+  2424 18028  1889 |     b = positive
+  1558  2927  2368 |     c = neutral
