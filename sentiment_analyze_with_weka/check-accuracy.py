@@ -1,5 +1,4 @@
 import csv
-from nltk.chunk.util import accuracy
 
 original = open('train.csv','r')
 f1 = csv.DictReader(original)
