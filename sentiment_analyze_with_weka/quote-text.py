@@ -26,7 +26,7 @@ for row in reader:
     text = row['text'].replace('\'','').replace('\n',' ').replace('\\','\\ ').replace(',','').replace('-',' ').replace('_',' ').lower()
     
     # in case reviewer use word to give stars
-    text.replace('one star', '1 star').replace('two starts', '2 stars').replace('three stars','3 stars').replace('four stars','4 stars').replace('five stars', '5 stars').replace('zero star','0 star')
+    text.replace('one star', '1 star').replace('two starts', '2 stars').replace('three stars','3 stars').replace('four stars','4 stars').replace('five stars', '5 stars')
     
     # Add quote to each end
     arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
