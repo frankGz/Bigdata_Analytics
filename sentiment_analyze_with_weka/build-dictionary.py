@@ -59,7 +59,7 @@ ori_text = []
 ori_class = []
 ori_ID = []
 
-# read csv 
+# read csv
 print('read from quoted-train.csv')
 file = open('quoted-train.csv','r')
 csvfile = csv.DictReader(file)
@@ -71,28 +71,28 @@ for row in csvfile:
     stemmed = stem_string(row['text'])
     reviews[row['class']] += stemmed + ' '
     #print(row['class'] + '.....' + stemmed)
-    
+
 file.close()
 print('porter stemming done. Unique words: ',len(unique_words))
 
 # do tfidf transform
 print('do tfidf analyze...')
 X =  tf.fit_transform(reviews.values())
-feature_names = tf.get_feature_names() 
+feature_names = tf.get_feature_names()
 for j in range(0, 3):
     #doc = 0
     # tuple the pairs
     raw_dict = {}
-    feature_index = X[j,:].nonzero()[1] 
+    feature_index = X[j,:].nonzero()[1]
     #(0, n). nonzero and select the 2nd col
     tfidf_scores = zip(feature_index, [X[j, x] for x in feature_index])
     for w, s in [(feature_names[i], s) for (i, s) in tfidf_scores]:
         raw_dict[w] = s
-    
-    sorted_dict = dict(sorted(raw_dict.items(),key = operator.itemgetter(1),reverse = True)[:1500])  
-    print("working on: ", list(reviews.keys())[j]) 
+
+    sorted_dict = dict(sorted(raw_dict.items(),key = operator.itemgetter(1),reverse = True)[:1500])
+    print("working on: ", list(reviews.keys())[j])
     for r in sorted_dict.keys():
-        #test.write(str(r) + "\t\t" + str(sorted_dict[r]) + '\n')  
+        #test.write(str(r) + "\t\t" + str(sorted_dict[r]) + '\n')
         keywords[str(list(reviews.keys())[j])].append(str(r))
 print('tfidf analyze done.')
 
