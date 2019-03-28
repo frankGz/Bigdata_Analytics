@@ -22,7 +22,7 @@ def stem_string(string):
     for word in words:
         if word not in stop_words:
             words_cleanned.append(ps.stem(word))
-    ori_text.append(set(words_cleanned))
+    #ori_text.append(set(words_cleanned))
     str = ''
     for stemmed in words_cleanned:
         if len(stemmed) > 1:
@@ -42,7 +42,7 @@ stop_words = [s.lower() for s in stops] + [f.lower() for f in foods]
 
 
 # initialize helper tools
-tf = TfidfVectorizer(token_pattern=(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+'), ngram_range=(1, 1), lowercase=True, sublinear_tf=True) # regex: words + decimal + x/y
+tf = TfidfVectorizer(token_pattern=(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+'), ngram_range=(1, 2), lowercase=True, sublinear_tf=True) # regex: words + decimal + x/y
 reg = RegexpTokenizer(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+')
 ps = PorterStemmer()
 
@@ -70,6 +70,7 @@ for row in csvfile:
     ori_class.append(row['class'])
     ori_ID.append(row['ID'])
     stemmed = stem_string(row['text'])
+    ori_text.append(stemmed)
     reviews[row['class']] += stemmed + ' '
     #print(row['class'] + '.....' + stemmed)
 
@@ -139,10 +140,9 @@ testcsv = csv.DictReader(test)
 vectorlized_test.write(header[:-1] + '\n')
 for row2 in testcsv:
     line = row2['ID'] + ',' + row2['class'] + ','
-    tokens = reg.tokenize(row2['text'])
-    tokens_stemmed = [ps.stem(w) for w in tokens]
+    str = stem_string(row2['text'])
     for word in words_set:
-        if word in tokens_stemmed:
+        if word in str:
             line += 'yes,'
         else:
             line += 'no,'
