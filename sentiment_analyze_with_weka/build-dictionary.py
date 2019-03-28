@@ -22,7 +22,7 @@ def stem_string(string):
     for word in words:
         if word not in stop_words:
             words_cleanned.append(ps.stem(word))
-    ori_text.append(set(words_cleanned))
+    #ori_text.append(set(words_cleanned))
     str = ''
     for stemmed in words_cleanned:
         if len(stemmed) > 1:
@@ -42,7 +42,7 @@ stop_words = [s.lower() for s in stops] + [f.lower() for f in foods]
 
 
 # initialize helper tools
-tf = TfidfVectorizer(token_pattern=(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+'), ngram_range=(1, 1), lowercase=True, sublinear_tf=True) # regex: words + decimal + x/y
+tf = TfidfVectorizer(token_pattern=(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+'), ngram_range=(1, 2), lowercase=True, sublinear_tf=True) # regex: words + decimal + x/y
 reg = RegexpTokenizer(r'[0-9]?[.]?[0-9]?\sstar|[0-9]+[/]{1}[0-9]+|\w+')
 ps = PorterStemmer()
 
@@ -59,6 +59,7 @@ ori_text = []
 ori_class = []
 ori_ID = []
 
+
 # read csv
 print('read from quoted-train.csv')
 file = open('quoted-train.csv','r')
@@ -69,6 +70,7 @@ for row in csvfile:
     ori_class.append(row['class'])
     ori_ID.append(row['ID'])
     stemmed = stem_string(row['text'])
+    ori_text.append(stemmed)
     reviews[row['class']] += stemmed + ' '
     #print(row['class'] + '.....' + stemmed)
 
@@ -89,7 +91,7 @@ for j in range(0, 3):
     for w, s in [(feature_names[i], s) for (i, s) in tfidf_scores]:
         raw_dict[w] = s
 
-    sorted_dict = dict(sorted(raw_dict.items(),key = operator.itemgetter(1),reverse = True)[:1500])
+    sorted_dict = dict(sorted(raw_dict.items(),key = operator.itemgetter(1),reverse = True)[:2000])
     print("working on: ", list(reviews.keys())[j])
     for r in sorted_dict.keys():
         #test.write(str(r) + "\t\t" + str(sorted_dict[r]) + '\n')
@@ -109,12 +111,14 @@ for words in words_set:
     dictionary.write(words + '\n')
 print('dictionary saved -- words_dictionary.txt')
 
-# build mapping csv based on dictionary
-print('constructing mapping csv...')
-vectorlized_train = open('vectorlized_train.csv','w')
+# build vectorlized csv header
 header = 'ID,CLASS,'
 for keys in  words_set:
     header += keys + ','
+
+# build mapping train csv based on dictionary
+print('constructing mapping train csv...')
+vectorlized_train = open('vectorlized_train.csv','w')
 vectorlized_train.write(header[:-1] + '\n')
 for i in range(0,len(ori_ID)):
     #print('working on line ',i)
@@ -127,4 +131,26 @@ for i in range(0,len(ori_ID)):
             line += 'no,'
     vectorlized_train.write(line[:-1] + '\n')
 print('saved mapping csv -- vectorlized_train.csv')
+
+# build mapping testing csv
+print('constructing mapping test csv...')
+vectorlized_test = open('vectorlized_test.csv','w') # for write
+test = open('quoted-test.csv','r')
+testcsv = csv.DictReader(test)
+vectorlized_test.write(header[:-1] + '\n')
+for row2 in testcsv:
+    line = row2['ID'] + ',' + row2['class'] + ','
+    str = stem_string(row2['text'])
+    for word in words_set:
+        if word in str:
+            line += 'yes,'
+        else:
+            line += 'no,'
+    vectorlized_test.write(line[:-1] + '\n')
+    
+vectorlized_test.close()
+test.close()
+
+print('saved mapping csv -- vectorlized_test.csv')
 print('Finished')
+

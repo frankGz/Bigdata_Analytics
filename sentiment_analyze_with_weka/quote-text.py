@@ -4,12 +4,12 @@ csvfile = open('train.csv','r')
 reader = csv.DictReader(csvfile)
 
 # Add arff header
-arff_out = open('quoted-train.arff','w')
-arff_out.write('@RELATION train\n\n')
-arff_out.write('@ATTRIBUTE text STRING\n')
-arff_out.write('@ATTRIBUTE CLASS {negative,positive,neutral}\n')
-arff_out.write('@ATTRIBUTE ID real\n\n')
-arff_out.write('@DATA\n')
+#arff_out = open('quoted-train.arff','w')
+#arff_out.write('@RELATION train\n\n')
+#arff_out.write('@ATTRIBUTE text STRING\n')
+#arff_out.write('@ATTRIBUTE CLASS {negative,positive,neutral}\n')
+#arff_out.write('@ATTRIBUTE ID real\n\n')
+#arff_out.write('@DATA\n')
 
 # Add csv header
 csv_out = open('quoted-train.csv','w')
@@ -25,13 +25,32 @@ for row in reader:
     # Lower all text
     text = row['text'].replace('\'','').replace('\n',' ').replace('\\','\\ ').replace(',','').replace('-',' ').replace('_',' ').lower()
 
-    # in case reviewer use word to give stars
-    text.replace('one star', '1 star').replace('two starts', '2 stars').replace('three stars','3 stars').replace('four stars','4 stars').replace('five stars', '5 stars').replace('zero star','0 star')
+    # in case reviewer use word to give stars :\
+    text.replace('one star', '1 star').replace('two starts', '2 star').replace('three stars','3 star').replace('four stars','4 star').replace('five stars', '5 star').replace('zero star','0 star')
 
     # Add quote to each end
-    arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
+    #arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
     csv_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
 
-arff_out.close()
+#arff_out.close()
 csv_out.close()
 csvfile.close()
+
+# build quoted_test.csv
+testfile = open('test.csv','r')
+test = csv.DictReader(testfile)
+quoted_test = open ('quoted-test.csv','w')
+quoted_test.write('text,class,ID\n')
+for row2 in test:
+    text = row2['text'].replace('\'','').replace('\n',' ').replace('\\','\\ ').replace(',','').replace('-',' ').replace('_',' ').lower()
+    
+    # in case reviewer use word to give stars
+    text.replace('one star', '1 star').replace('two starts', '2 stars').replace('three stars','3 stars').replace('four stars','4 stars').replace('five stars', '5 stars').replace('zero star','0 star')
+    print(text)
+    # Add quote to each end
+    #arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
+    quoted_test.write('\'' + text + '\',' + '0' + ',' + row2['ID'] + '\n')
+    
+
+testfile.close()
+quoted_test.close()
