@@ -1,0 +1,24 @@
+Appendix
+User Manual
+
+Preprocessing{1-5}, Classification{5}, Predict{6} 
+
+Step 1:
+	install required python packages (make sure you have Python3 and pip installed): pip install numpy, matplotlib, sklearn, nltk
+	run python in terminal, import nltk, then run script 'nltk.download()' to downlord all extra resources.
+Step 2:
+	put 'quote-text.py', 'build-dictionary.py', 'train.csv'(downloaded), 'test.csv'(downloaded), 'stop_words.lst'(MODIFIED from downloaded) into a same folder
+	open terminal in that folder
+Step 3:
+	run quote-text.py:	python quote-text.py
+	this will generate two files under current folder:	'quoted-train.csv', 'quoted-test.csv'
+Step 4:
+	run build-dictionary.py:	python build-dictionary.py
+	this will generate three files under current folder:	'vectorized-train.csv', 'vectorized-test.csv'(CONTAINS A FAKE CLASS COLUMN), 'words_dictionary.txt'(for inspect, contains list of words as attributes)
+Step 5:
+	Use weka tools, convert 'vectorized-train.csv', 'vectorized-test.csv' into 'vectorized-train.arff', 'vectorized-test.arff'
+Step 6:
+	Load 'vectorized-train.arff', remove ID, do classification using a learning algorithm.
+Step 7:
+	Change 'Test Option' to 'Supplied test set', load 'vectorized-test.arff'
+	Re-evaluate the model learned in Step 5 on current test

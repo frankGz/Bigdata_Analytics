@@ -1,4 +1,5 @@
 import csv
+import re
 
 csvfile = open('train.csv','r')
 reader = csv.DictReader(csvfile)
@@ -30,7 +31,7 @@ for row in reader:
 
     # Add quote to each end
     #arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
-    csv_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
+    csv_out.write('\'' + re.sub(r'[0-9]+/[0-9]+/[0-9]+','',text) + '\',' + row['class'] + ',' + row['ID'] + '\n')
 
 #arff_out.close()
 csv_out.close()
@@ -46,10 +47,10 @@ for row2 in test:
     
     # in case reviewer use word to give stars
     text.replace('one star', '1 star').replace('two starts', '2 stars').replace('three stars','3 stars').replace('four stars','4 stars').replace('five stars', '5 stars').replace('zero star','0 star')
-    print(text)
+    #print(text)
     # Add quote to each end
     #arff_out.write('\'' + text + '\',' + row['class'] + ',' + row['ID'] + '\n')
-    quoted_test.write('\'' + text + '\',' + '0' + ',' + row2['ID'] + '\n')
+    quoted_test.write('\'' + re.sub(r'[0-9]+/[0-9]+/[0-9]+','',text) + '\',' + '0' + ',' + row2['ID'] + '\n')
     
 
 testfile.close()

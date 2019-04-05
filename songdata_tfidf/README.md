@@ -1,5 +1,5 @@
 Songdata Analyze
-##Text Analytics using Python
+## Text Analytics using Python
 * Descriptive Statistics
 	*  number of artists/bands in the collection (numOfArtists)
 	*  number of songs in the collection (numOfSongs)

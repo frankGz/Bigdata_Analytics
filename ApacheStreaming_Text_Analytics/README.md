@@ -1,9 +1,9 @@
 Hadoop MapReduce HDFS
 -----------
-####running in docker environment (python3, HDFS, and Apache Spark installed)
+#### running in docker environment (python3, HDFS, and Apache Spark installed)
 	 docker pull eecsyorku/eecs4415:latest
 -----------
-##Streaming Text Analytics using Python
+## Streaming Text Analytics using Python
 *  Identifying Trends in Twitter (Part A)
 	A Twitter streaming application that tracks specific hashtags and reports their popularity (# occurrences) in real-time. I
 	*  Identify 5 related #hashtags
@@ -17,8 +17,8 @@ Hadoop MapReduce HDFS
 	*  Collect tweets related to the 5 topics in real-time and perform sentiment analysis for each topic
 	*  Plot the results of your analysis in real-time. Alternatively, you can decide to store results in afile, post-process them and create a plot based on the post-process analysis
 
-##How to use (with docker):
-###Part A
+## How to use (with docker):
+### Part A
 	1. Run docker for twitter app: docker run -it -v <PATH>:/app --name twitter -p 9009:9009 -w /app python bash
 	2. Install tweepy package: pip install -U git+https://github.com/tweepy/tweepy.git@2efe385fc69385b57733f747ee62e6be12a1338b
 	3. Run application: python twitter_app.py
